@@ -44,7 +44,7 @@ internal class BankControllerTest @Autowired constructor(
                 .andExpect {
                     status { isOk() }
                     content { contentType(MediaType.APPLICATION_JSON) }
-                    jsonPath("$[0].accountNumber") { value("1234") }
+                    jsonPath("$[0].account_number") { value("1234") }
 
                 }
         }
@@ -52,20 +52,20 @@ internal class BankControllerTest @Autowired constructor(
 
 
     @Nested
-    @DisplayName("GET /api/bank/{accountNumber}")
+    @DisplayName("GET /api/bank/{account_number}")
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
     inner class GetBank {
         @Test
         fun `should return the bank with the given Account Number`() {
-            val accountNumber = 1234
+            val account_number = 1234
             //When /Then
-            mockMvc.get("/api/banks/$accountNumber")
+            mockMvc.get("/api/banks/$account_number")
                 .andDo { print() }
                 .andExpect {
                     status { isOk() }
                     content { contentType(MediaType.APPLICATION_JSON) }
                     jsonPath("$.trust") { value("3.2") }
-                    jsonPath("$.transactionFee") { value("3") }
+                    jsonPath("$.default_transaction_fee") { value("3") }
                 }
 
 
@@ -115,9 +115,9 @@ internal class BankControllerTest @Autowired constructor(
                 .andExpect {
                     status { isCreated() }
                     content { contentType(MediaType.APPLICATION_JSON) }
-                    jsonPath("$.accountNumber") { value("acc123") }
+                    jsonPath("$.account_number") { value("acc123") }
                     jsonPath("$.trust") { value("31.3") }
-                    jsonPath("$.transactionFee") { value("2") }
+                    jsonPath("$.default_transaction_fee") { value("2") }
                 }
 
 
@@ -134,7 +134,7 @@ internal class BankControllerTest @Autowired constructor(
         fun `should return BAD REQUEST if a bank with given account number Exists`() {
             //Given
 
-            val invalidBank = Bank("8393s0s", 9.2, 12)
+            val invalidBank = Bank("898989", 9.2, 12)
 
             val performPost = mockMvc.post(baseUrl) {
                 contentType = MediaType.APPLICATION_JSON
@@ -200,7 +200,7 @@ internal class BankControllerTest @Autowired constructor(
         @Test
         fun `should return Bad REQUEST  if no bank with Given Account Number exitsts`() {
             //given
-            val invalidBank = Bank("does_not_exist", 1.0, 1)
+            val invalidBank =Bank("does_not_exist",1.0,1)
 
             val baseUrl = "/api/banks"
             //When /Then
@@ -222,10 +222,8 @@ internal class BankControllerTest @Autowired constructor(
         }
 
     }
-
-
     @Nested
-    @DisplayName("DELETE /api/banks/{accountNumber}")
+    @DisplayName("DELETE /api/banks/{account_number}")
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
     inner class DeleteExistBank {
         val baseUrl = "/api/banks"
@@ -233,15 +231,15 @@ internal class BankControllerTest @Autowired constructor(
         @Test
         fun `should delete the bank with the given Account Number`() {
             //When
-            val accountNumber = 1234
+            val account_number = 1235
             //When /Then
-            mockMvc.delete("/api/banks/$accountNumber")
+            mockMvc.delete("/api/banks/$account_number")
                 .andDo { print() }
                 .andExpect {
-                    status { isNoContent() }
+                    status {isNoContent() }
                 }
             //When /Then
-            mockMvc.get("/api/banks/$accountNumber")
+            mockMvc.get("/api/banks/$account_number")
                 .andDo { print() }
                 .andExpect {
                     status { isNotFound() }
@@ -258,7 +256,7 @@ internal class BankControllerTest @Autowired constructor(
             mockMvc.delete("/api/banks/$invalidAccountNumber")
                 .andDo { print() }
                 .andExpect {
-                    status { isNotFound() }
+                    status {isNotFound() }
                 }
         }
 

@@ -5,11 +5,12 @@ import com.malik.api.spring.kotlinspringboot.model.Bank
 import org.springframework.stereotype.Repository
 import java.lang.IllegalArgumentException
 
-@Repository
+@Repository("mock")
 class MockBankDataSource : BankDataSource {
 
     val banks = mutableListOf(
         Bank("1234", 3.2, 3),
+        Bank("1235", 3.1, 9),
         Bank("898989", 9.2, 12),
         Bank("990009", 4.4, 17),
     )
