@@ -13,11 +13,10 @@ class HelloWorldControlller {
 //    fun helloWorld():String=  "Hello, This is a REST endpoint"
 
     @GetMapping
-    fun helloWorld():String=  "Hello, This is a REST endpoint"
+    fun helloWorld(): String = "Hello, This is a REST endpoint"
 
     @GetMapping("/malik")
-    fun hellomalik():String=  "Hello, This is a Message from Malik"
-
+    fun hellomalik(): String = "Hello, This is a Message from Malik"
 
 
 }

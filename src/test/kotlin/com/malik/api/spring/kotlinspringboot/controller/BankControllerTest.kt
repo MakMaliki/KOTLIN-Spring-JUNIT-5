@@ -200,7 +200,7 @@ internal class BankControllerTest @Autowired constructor(
         @Test
         fun `should return Bad REQUEST  if no bank with Given Account Number exitsts`() {
             //given
-            val invalidBank =Bank("does_not_exist",1.0,1)
+            val invalidBank = Bank("does_not_exist", 1.0, 1)
 
             val baseUrl = "/api/banks"
             //When /Then
@@ -224,7 +224,6 @@ internal class BankControllerTest @Autowired constructor(
     }
 
 
-
     @Nested
     @DisplayName("DELETE /api/banks/{accountNumber}")
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -239,7 +238,7 @@ internal class BankControllerTest @Autowired constructor(
             mockMvc.delete("/api/banks/$accountNumber")
                 .andDo { print() }
                 .andExpect {
-                    status {isNoContent() }
+                    status { isNoContent() }
                 }
             //When /Then
             mockMvc.get("/api/banks/$accountNumber")
@@ -259,7 +258,7 @@ internal class BankControllerTest @Autowired constructor(
             mockMvc.delete("/api/banks/$invalidAccountNumber")
                 .andDo { print() }
                 .andExpect {
-                    status {isNotFound() }
+                    status { isNotFound() }
                 }
         }
 
